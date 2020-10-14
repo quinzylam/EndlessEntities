@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using EndlessEntities.Models;
+using EndlessEntities.Core.Models;
 using EndlessEntities.Views;
 using EndlessEntities.ViewModels;
 
@@ -15,7 +15,7 @@ namespace EndlessEntities.Views
 {
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel _viewModel;
+        private ItemsViewModel _viewModel;
 
         public ItemsPage()
         {

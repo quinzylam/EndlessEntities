@@ -4,14 +4,14 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using EndlessEntities.Models;
+using EndlessEntities.Core.Models;
 using EndlessEntities.ViewModels;
 
 namespace EndlessEntities.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public Entity Item { get; set; }
 
         public NewItemPage()
         {

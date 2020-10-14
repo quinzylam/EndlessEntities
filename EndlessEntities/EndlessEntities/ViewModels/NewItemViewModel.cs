@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
-using EndlessEntities.Models;
+using EndlessEntities.Core.Models;
 using Xamarin.Forms;
 
 namespace EndlessEntities.ViewModels
@@ -49,14 +49,14 @@ namespace EndlessEntities.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            Entity newItem = new Entity()
             {
                 Id = Guid.NewGuid().ToString(),
                 Text = Text,
                 Description = Description
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await Controller.AddAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

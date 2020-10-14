@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace EndlessEntities.UI.Models
+namespace EndlessEntities.Core.Models
 {
-    public class Item
+    public class Entity
     {
         public string Id { get; set; }
         public string Text { get; set; }

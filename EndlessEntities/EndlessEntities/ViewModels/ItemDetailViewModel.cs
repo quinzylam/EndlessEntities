@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using EndlessEntities.Models;
+using EndlessEntities.Core.Models;
 using Xamarin.Forms;
 
 namespace EndlessEntities.ViewModels
@@ -43,7 +43,7 @@ namespace EndlessEntities.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = await Controller.GetAsync(itemId);
                 Id = item.Id;
                 Text = item.Text;
                 Description = item.Description;

@@ -1,19 +1,28 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using EndlessEntities.Services;
-using EndlessEntities.Views;
+﻿using Xamarin.Forms;
+using EndlessEntities.Core.Models;
+using EndlessEntities.Data;
+using EndlessEntities.UI.Controllers;
+using EndlessEntities.Core.Services;
+using EndlessEntities.Services.Services;
+using Unity;
+using CommonServiceLocator;
+using Unity.ServiceLocation;
+using System.ComponentModel;
 
 namespace EndlessEntities
 {
     public partial class App : Application
     {
+        public static UnityContainer Container { get; } = new UnityContainer();
 
         public App()
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            Container.RegisterSingleton<IDataStore<Entity>, MockDataStore>();
+            Container.RegisterType<IEntityService<Entity>, EntityService>();
+            ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(Container));
+
             MainPage = new AppShell();
         }
 

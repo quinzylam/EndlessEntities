@@ -5,39 +5,39 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-using EndlessEntities.Models;
+using EndlessEntities.Core.Models;
 using EndlessEntities.Views;
 
 namespace EndlessEntities.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private Entity _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<Entity> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<Entity> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<Entity>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<Entity>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
 
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await Controller.GetAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -59,7 +59,7 @@ namespace EndlessEntities.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public Entity SelectedItem
         {
             get => _selectedItem;
             set
@@ -74,7 +74,7 @@ namespace EndlessEntities.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        private async void OnItemSelected(Entity item)
         {
             if (item == null)
                 return;
